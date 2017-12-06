@@ -14,7 +14,7 @@ def main():
         a file that contains mappings between words and number of
         complaints they appear in
 
-        folder 'output': For each inverted index, list the tuples
+        folder 'index': For each inverted index, list the tuples
         these are mappings between a word, and a list of all the Complaints
         they appear in
     '''
@@ -28,13 +28,22 @@ def main():
 
     for key in xs.keys():
         print ("Starting to write counts for " + key)
+        counts = open(dir_ + "/output/counts/count" + key + ".txt", mode='w')
 
-        counts = open(dir_ + "/output/counts/count" + key, mode='w')
         for entry in xs[key]: # iterate through the index
             counts.write(entry[0] + " " + str(len(entry[1])) +  "\n")
         counts.close()
 
         print ("Finished writing counts for " + key)
 
+    for key in xs.keys():
+        print ("Starting to write index for " + key)
+        write_index = open(dir_ + "/output/indexes/indexes" + key + ".txt", mode='w')
+
+        for entry in xs[key]:
+            write_index.write(entry[0] + " " + " ".join(entry[1]) + "\n")
+     
+	write_index.close()
+	print("Finished writing index for " + key) 
 
 main()
